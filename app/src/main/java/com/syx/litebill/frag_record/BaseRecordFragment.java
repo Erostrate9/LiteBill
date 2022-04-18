@@ -23,6 +23,7 @@ import com.syx.litebill.db.DBManager;
 import com.syx.litebill.db.TypeBean;
 import com.syx.litebill.utils.KeyBoardUtils;
 import com.syx.litebill.utils.NoteDialog;
+import com.syx.litebill.utils.SelectTimeDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -170,9 +171,29 @@ public abstract class BaseRecordFragment extends Fragment implements View.OnClic
                 showNoteDialog();
                 break;
             case R.id.frag_record_tv_time:
-
+                showTimeDialog();
                 break;
         }
+    }
+
+    private void showTimeDialog() {
+        SelectTimeDialog stDialog = new SelectTimeDialog(getContext(),accountBean);
+        stDialog.show();
+        stDialog.setOnConfirmListener(new SelectTimeDialog.OnConfirmListener() {
+            @Override
+            public void onConfirm() {
+                String msg=stDialog.getTime();
+                if(!TextUtils.isEmpty(msg)){
+                    timeTv.setText(msg);
+                    accountBean.setTime(msg);
+                    accountBean.setYear(stDialog.getYear());
+                    accountBean.setMonth(stDialog.getMonth());
+                    accountBean.setDay(stDialog.getDay());
+
+                }
+                stDialog.cancel();
+            }
+        });
     }
 
     /*
@@ -189,6 +210,7 @@ public abstract class BaseRecordFragment extends Fragment implements View.OnClic
                     noteTv.setText(msg);
                     accountBean.setNote(msg);
                 }
+                noteDialog.cancel();
             }
         });
     }
