@@ -149,9 +149,9 @@ public abstract class BaseRecordFragment extends Fragment implements View.OnClic
                 }else{
                     float money=Float.parseFloat(moneyStr);
                     accountBean.setMoney(money);
-                    Toast.makeText(getContext(), ""+money, Toast.LENGTH_SHORT).show();
                 }
                 //将数据存储到数据库
+                Toast.makeText(getContext(), ""+accountBean.getMoney()+","+accountBean.getTime()+","+accountBean.getYear(), Toast.LENGTH_SHORT).show();
                 saveAccountToDB(accountBean);
                 //返回上一级页面
                 getActivity().finish();
@@ -181,14 +181,13 @@ public abstract class BaseRecordFragment extends Fragment implements View.OnClic
         stDialog.show();
         stDialog.setOnConfirmListener(new SelectTimeDialog.OnConfirmListener() {
             @Override
-            public void onConfirm() {
-                String msg=stDialog.getTime();
-                if(!TextUtils.isEmpty(msg)){
-                    timeTv.setText(msg);
-                    accountBean.setTime(msg);
-                    accountBean.setYear(stDialog.getYear());
-                    accountBean.setMonth(stDialog.getMonth());
-                    accountBean.setDay(stDialog.getDay());
+            public void onConfirm(String time,int year, int month, int day) {
+                if(!TextUtils.isEmpty(time)){
+                    timeTv.setText(time);
+                    accountBean.setTime(time);
+                    accountBean.setYear(year);
+                    accountBean.setMonth(month);
+                    accountBean.setDay(day);
 
                 }
                 stDialog.cancel();

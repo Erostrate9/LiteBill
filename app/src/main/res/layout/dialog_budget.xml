@@ -6,34 +6,48 @@
     android:background="@color/rice_fffaf4">
 
     <TextView
-        android:id="@+id/dialog_note_tv"
+        android:id="@+id/dialog_budget_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/add_note"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
+        android:text="@string/set_budget"
         android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/dialog_budget_yuan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dialog_budget_tv"
+        android:layout_alignTop="@+id/dialog_budget_et"
+        android:text="￥"
+        android:textStyle="bold"
+        android:textSize="20sp" />
+
     <EditText
-        android:id="@+id/dialog_note_et"
+        android:id="@+id/dialog_budget_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/dialog_note_tv"
-        android:hint="@string/note"
+        android:layout_below="@id/dialog_budget_tv"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        android:textSize="14sp"
-        android:background="@color/white">
-        <requestFocus/>
+        android:layout_toRightOf="@+id/dialog_budget_yuan"
+        android:background="@color/white"
+        android:hint="@string/budget"
+        android:inputType="number"
+        android:textSize="18sp">
+
+        <requestFocus />
     </EditText>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/dialog_note_et"
+        android:layout_below="@id/dialog_budget_et"
         android:padding="10dp">
         <Button
-            android:id="@+id/dialog_note_btn_cancel"
+            android:id="@+id/dialog_budget_btn_cancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -43,7 +57,7 @@
             android:background="@drawable/dialog_btn_bg"/>
 
         <Button
-            android:id="@+id/dialog_note_btn_confirm"
+            android:id="@+id/dialog_budget_btn_confirm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"

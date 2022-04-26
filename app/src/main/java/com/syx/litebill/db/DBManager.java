@@ -5,6 +5,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import com.syx.litebill.adapter.AccountAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +42,7 @@ public class DBManager {
             TypeBean typeBean = new TypeBean(id,typename,imageId,selectedImageId,kind1);
             list.add(typeBean);
         }
+        cursor.close();
         return list;
     }
 
@@ -60,6 +64,82 @@ public class DBManager {
         values.put("day",accountBean.getDay());
         values.put("kind",accountBean.getKind());
         db.insert("accounttb",null,values);
+        Log.i("animee","insertItemToAccounttb:ok!!!"+accountBean);
     }
-
+    /*
+    * 获取记账表当中某一天的所有支出或者收入情况
+    * */
+    @SuppressLint("Range")
+    public static ArrayList<AccountBean> getAccountListOn(int sYear, int sMonth, int sDay){
+        ArrayList<AccountBean> list = new ArrayList<>();
+        String sql = "select * from accounttb where year=? and month =? and day=? order by id desc";
+        Cursor cursor= db.rawQuery(sql,new String[]{sYear+"",sMonth+"",sDay+""});
+        //遍历符合要求的每一行数据
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            int selectedImageId = cursor.getInt(cursor.getColumnIndex("selectedImageId"));
+            int year = cursor.getInt(cursor.getColumnIndex("year"));
+            int month = cursor.getInt(cursor.getColumnIndex("month"));
+            int day = cursor.getInt(cursor.getColumnIndex("day"));
+            int kind = cursor.getInt(cursor.getColumnIndex("kind"));
+            String typename=cursor.getString(cursor.getColumnIndex("typename"));
+            String note=cursor.getString(cursor.getColumnIndex("note"));
+            String time=cursor.getString(cursor.getColumnIndex("time"));
+            float money = cursor.getFloat(cursor.getColumnIndex("money"));
+            AccountBean bean=new AccountBean(id,typename,selectedImageId,note,money,time,year,month,day,kind);
+            list.add(bean);
+        }
+        cursor.close();
+        return list;
+    }
+    /*
+    * 获取某一天的支出或收入的总金额
+    * 输入: int year, int month, int day, kind: 支出==0 收入==1
+    * */
+    @SuppressLint("Range")
+    public static float getSumMoneyOn(int kind, int year, int month, int day){
+        float total =0.0f;
+        String sql = "select sum(money) from accounttb where kind=? and year=? and month=? and day=?";
+        Cursor cursor=db.rawQuery(sql,new String[]{kind+"",year+"",month+"",day+""});
+        if(cursor.moveToFirst()){
+            total=cursor.getFloat(cursor.getColumnIndex("sum(money)"));
+        }
+        cursor.close();
+        return total;
+    }
+    @SuppressLint("Range")
+    public static float getSumMoneyOn(int kind, int year, int month){
+        float total =0.0f;
+        String sql = "select sum(money) from accounttb where kind=? and year=? and month=?";
+        Cursor cursor=db.rawQuery(sql,new String[]{kind+"",year+"",month+""});
+        if(cursor.moveToFirst()){
+            total=cursor.getFloat(cursor.getColumnIndex("sum(money)"));
+        }
+        cursor.close();
+        return total;
+    }
+    @SuppressLint("Range")
+    public static float getSumMoneyOn(int kind, int year){
+        float total =0.0f;
+        String sql = "select sum(money) from accounttb where kind=? and year=?";
+        Cursor cursor=db.rawQuery(sql,new String[]{kind+"",year+""});
+        if(cursor.moveToFirst()){
+            total=cursor.getFloat(cursor.getColumnIndex("sum(money)"));
+        }
+        cursor.close();
+        return total;
+    }
+    @SuppressLint("Range")
+    public static float getSumMoneyOn(int kind){
+        float total =0.0f;
+        String sql = "select sum(money) from accounttb where kind=?";
+        Cursor cursor=db.rawQuery(sql,new String[]{kind+""});
+        if(cursor.moveToFirst()){
+            total=cursor.getFloat(cursor.getColumnIndex("sum(money)"));
+        }
+        cursor.close();
+        return total;
+    }
 }
+
+

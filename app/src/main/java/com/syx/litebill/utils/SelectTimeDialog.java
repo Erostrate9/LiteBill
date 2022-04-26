@@ -3,6 +3,7 @@ package com.syx.litebill.utils;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -20,11 +21,11 @@ import java.util.regex.Pattern;
 
 public class SelectTimeDialog extends Dialog implements View.OnClickListener {
     private EditText hourEt, minEt;
+    private int hour,min;
     private DatePicker datePicker;
     private Button confirmBtn, cancelBtn;
     private AccountBean accountBean;
     private SelectTimeDialog.OnConfirmListener onConfirmListener;
-    private String hour,min;
     public SelectTimeDialog(@NonNull Context context,AccountBean accountBean) {
         super(context);
         this.accountBean=accountBean;
@@ -47,7 +48,7 @@ public class SelectTimeDialog extends Dialog implements View.OnClickListener {
         minEt.setText(Integer.toString(date.getMinutes()));
     }
     public interface OnConfirmListener{
-        void onConfirm();
+        void onConfirm(String time,int year, int month, int day);
     }
     /*
      * 设定回调接口的方法
@@ -59,19 +60,51 @@ public class SelectTimeDialog extends Dialog implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.dialog_time_btn_confirm:
-                hour=hourEt.getText().toString();
-                min=minEt.getText().toString();
-                String hour_pattern="^[01]?[0-9]$|^2[0-3]$";
-                String min_pattern="^[0-5]?[0-9]$";
-                if(!Pattern.matches(hour_pattern, hour)){
-                    Toast.makeText(getContext(), "小时只能为0-23", Toast.LENGTH_SHORT).show();
-                    break;
-                }else if(!Pattern.matches(min_pattern, min)){
-                    Toast.makeText(getContext(), "分钟只能为0-59", Toast.LENGTH_SHORT).show();
+                int year= getYear();
+                int month=getMonth();
+                int day=getDay();
+                String monthStr=String.valueOf(month);
+                String dayStr=String.valueOf(day);
+                if(month<10){
+                    monthStr="0"+monthStr;
+                }
+                if(day<10){
+                    dayStr="0"+dayStr;
+                }
+                String hourStr=hourEt.getText().toString();
+                String minStr=minEt.getText().toString();
+                if(!TextUtils.isEmpty(hourStr)){
+                    hour = Integer.parseInt(hourStr);
+                    if(hour<0 || hour>23){
+                        Toast.makeText(getContext(), "小时只能为0-23", Toast.LENGTH_SHORT).show();
+                        break;
+                    }else{
+                        if(hour<10){
+                            hourStr="0"+hourStr;
+                        }
+                    }
+                }else{
+                    Toast.makeText(getContext(), "小时不能为空(0-23)", Toast.LENGTH_SHORT).show();
                     break;
                 }
+                if(!TextUtils.isEmpty(minStr)){
+                    min = Integer.parseInt(minStr);
+                    if(min<0 || min>59){
+                        Toast.makeText(getContext(), "分钟只能为0-59", Toast.LENGTH_SHORT).show();
+                        break;
+                    }else{
+                        if(min<10){
+                            minStr="0"+minStr;
+                        }
+                    }
+                }else{
+                    Toast.makeText(getContext(), "分钟不能为空(0-59)", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                String time = String.format("%d年%s月%s日 %s:%s",
+                        getYear(),monthStr,dayStr,hourStr,minStr);
                 if(onConfirmListener!=null){
-                    onConfirmListener.onConfirm();
+                    onConfirmListener.onConfirm(time,year,month,day);
                 }
                 cancel();
                 break;
@@ -80,18 +113,11 @@ public class SelectTimeDialog extends Dialog implements View.OnClickListener {
                 break;
         }
     }
-    public String getTime(){
-        hour=hourEt.getText().toString();
-        min=minEt.getText().toString();
-        String time = String.format("%d年%d月%d日 %s:%s",
-                getYear(),getMonth(),getDay(),hour,min);
-        return time;
-    }
     public int getYear(){
         return datePicker.getYear();
     }
     public int getMonth(){
-        return datePicker.getMonth();
+        return datePicker.getMonth()+1;
     }
     public int getDay(){
         return datePicker.getDayOfMonth();
