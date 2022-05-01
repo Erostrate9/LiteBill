@@ -2,12 +2,18 @@ package com.syx.litebill;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,6 +23,8 @@ import android.widget.TextView;
 import com.syx.litebill.adapter.AccountAdapter;
 import com.syx.litebill.db.AccountBean;
 import com.syx.litebill.db.DBManager;
+import com.syx.litebill.utils.BudgetDialog;
+import com.syx.litebill.utils.NoteDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,11 +41,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView topShowIv,searchIV;
     private Button editBtn;
     private ImageButton moreBtn;
+    private SharedPreferences preferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        preferences = getSharedPreferences("budget", Context.MODE_PRIVATE);
         mData = new ArrayList<>();
         //设置适配器
         adapter = new AccountAdapter(this,mData);
@@ -53,7 +63,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         moreBtn.setOnClickListener(this);
         searchIV.setOnClickListener(this);
         addLVHeaderView();
+//        设置长按事件
+        setLVLongClickListener();
     }
+
+//    设置ListView每一项的长按事件
+    private void setLVLongClickListener() {
+        mainLv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                //点击了头布局
+                if(position==0){
+                    return false;
+                }
+                int pos = position-1;
+//                获取正在被点击的这条信息
+                AccountBean clickedBean = mData.get(pos);
+                //弹出用户是否删除的对话框
+                showDeleteItemDialog(clickedBean);
+                return false;
+            }
+        });
+    }
+
     /*
     * 给ListView添加头布局的方法
     * */
@@ -99,11 +131,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         /*获取本月收入和支出总金额*/
         float incomeMon = DBManager.getSumMoneyOn(1,todayYear,todayMonth);
         float expenseMon = DBManager.getSumMoneyOn(0,todayYear,todayMonth);
-        String incomeMonStr="￥ "+incomeMon;
-        String expenseMonStr="￥ "+expenseMon;
-        topInTv.setText(incomeMonStr);
-        topOutTv.setText(expenseMonStr);
-
+        topInTv.setText("￥ "+incomeMon);
+        topOutTv.setText("￥ "+expenseMon);
+        /*设置显示运算剩余*/
+        float budget=preferences.getFloat("budget",0);//预算
+        if(budget==0){
+            topBudgetTv.setText("￥ 0");
+        }else{
+            float left = budget-expenseMon;
+            topBudgetTv.setText("￥ "+left);
+        }
     }
 
     private void loadDBDate() {
@@ -117,14 +154,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.main_iv_search:
-
+                Intent itSearch = new Intent(this, SearchActivity.class);
+                startActivity(itSearch);
                 break;
             case R.id.main_btn_edit:
-                Intent it1 = new Intent(this, RecordActivity.class);
-                startActivity(it1);
+                Intent itRecord = new Intent(this, RecordActivity.class);
+                startActivity(itRecord);
                 break;
             case R.id.item_mainlv_top_tv_budget:
-
+                showBudgetDialog();
                 break;
 
             case R.id.item_mainlv_top_iv_hide:
@@ -160,6 +198,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             topShowIv.setImageResource(R.mipmap.ih_show);
             isShow=true;
         }
+    }
+    /*
+    * 弹出budgetDialog的方法
+    * */
+    public void showBudgetDialog() {
+        float budget=preferences.getFloat("budget",0);//预算
+        BudgetDialog budgetDialog=new BudgetDialog(this,budget);
+        budgetDialog.show();
+        budgetDialog.setOnConfirmListener(new BudgetDialog.OnConfirmListener() {
+            @Override
+            public void onConfirm(float money) {
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putFloat("budget",money);
+                editor.commit();
+                /*计算剩余金额*/
+                float monthExpense=DBManager.getSumMoneyOn(0,todayYear,todayMonth);
+                float left = money-monthExpense;
+                topBudgetTv.setText("￥ "+left);
+                budgetDialog.cancel();
+            }
+        });
+    }
+    private void showDeleteItemDialog(final AccountBean clickedBean){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示信息").setMessage("您确定要删除这条记录吗？")
+                .setNegativeButton("取消",null)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //执行删除的操作
+                        DBManager.deleteItemFromAccounttbById(clickedBean.getId());
+                        mData.remove(clickedBean);
+//                      实时刷新，移除集合中的对象
+                        adapter.notifyDataSetChanged();
+                        //改变头布局TextView显示的内容
+                        setTopTvDisplay();
+                    }
+                });
+        //显示提示对话框
+        builder.create().show();
     }
 }
 

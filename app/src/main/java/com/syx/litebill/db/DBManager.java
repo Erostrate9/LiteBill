@@ -140,6 +140,41 @@ public class DBManager {
         cursor.close();
         return total;
     }
+    /*
+    * 根据传入的id,删除accounttb中的一条数据
+    * */
+    public static int deleteItemFromAccounttbById(int id){
+        int i = db.delete("accounttb","id=?",new String[]{id+""});
+        return i;
+    }
+
+
+    /*
+    * 根据备注搜索收入或支出的情况列表
+    * */
+    @SuppressLint("Range")
+    public static ArrayList<AccountBean> searchFromAccounttbByNote(String msg){
+        ArrayList<AccountBean> list = new ArrayList<>();
+        String sql = "select * from accounttb where note like '%"+msg+"%' order by id desc";
+        Cursor cursor= db.rawQuery(sql,null);
+        //遍历符合要求的每一行数据
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            int selectedImageId = cursor.getInt(cursor.getColumnIndex("selectedImageId"));
+            int year = cursor.getInt(cursor.getColumnIndex("year"));
+            int month = cursor.getInt(cursor.getColumnIndex("month"));
+            int day = cursor.getInt(cursor.getColumnIndex("day"));
+            int kind = cursor.getInt(cursor.getColumnIndex("kind"));
+            String typename=cursor.getString(cursor.getColumnIndex("typename"));
+            String note=cursor.getString(cursor.getColumnIndex("note"));
+            String time=cursor.getString(cursor.getColumnIndex("time"));
+            float money = cursor.getFloat(cursor.getColumnIndex("money"));
+            AccountBean bean=new AccountBean(id,typename,selectedImageId,note,money,time,year,month,day,kind);
+            list.add(bean);
+        }
+        cursor.close();
+        return list;
+    }
 }
 
 
