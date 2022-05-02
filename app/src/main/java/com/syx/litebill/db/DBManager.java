@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.syx.litebill.adapter.AccountAdapter;
 
 import java.util.ArrayList;
@@ -74,6 +76,59 @@ public class DBManager {
         ArrayList<AccountBean> list = new ArrayList<>();
         String sql = "select * from accounttb where year=? and month =? and day=? order by id desc";
         Cursor cursor= db.rawQuery(sql,new String[]{sYear+"",sMonth+"",sDay+""});
+        //遍历符合要求的每一行数据
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            int selectedImageId = cursor.getInt(cursor.getColumnIndex("selectedImageId"));
+            int year = cursor.getInt(cursor.getColumnIndex("year"));
+            int month = cursor.getInt(cursor.getColumnIndex("month"));
+            int day = cursor.getInt(cursor.getColumnIndex("day"));
+            int kind = cursor.getInt(cursor.getColumnIndex("kind"));
+            String typename=cursor.getString(cursor.getColumnIndex("typename"));
+            String note=cursor.getString(cursor.getColumnIndex("note"));
+            String time=cursor.getString(cursor.getColumnIndex("time"));
+            float money = cursor.getFloat(cursor.getColumnIndex("money"));
+            AccountBean bean=new AccountBean(id,typename,selectedImageId,note,money,time,year,month,day,kind);
+            list.add(bean);
+        }
+        cursor.close();
+        return list;
+    }
+    /*
+     * 获取记账表当中某一月的所有支出或者收入情况
+     * */
+    @SuppressLint("Range")
+    public static ArrayList<AccountBean> getAccountListOn(int sYear, int sMonth){
+        ArrayList<AccountBean> list = new ArrayList<>();
+        String sql = "select * from accounttb where year=? and month =? order by id desc";
+        Cursor cursor= db.rawQuery(sql,new String[]{sYear+"",sMonth+""});
+        //遍历符合要求的每一行数据
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            int selectedImageId = cursor.getInt(cursor.getColumnIndex("selectedImageId"));
+            int year = cursor.getInt(cursor.getColumnIndex("year"));
+            int month = cursor.getInt(cursor.getColumnIndex("month"));
+            int day = cursor.getInt(cursor.getColumnIndex("day"));
+            int kind = cursor.getInt(cursor.getColumnIndex("kind"));
+            String typename=cursor.getString(cursor.getColumnIndex("typename"));
+            String note=cursor.getString(cursor.getColumnIndex("note"));
+            String time=cursor.getString(cursor.getColumnIndex("time"));
+            float money = cursor.getFloat(cursor.getColumnIndex("money"));
+            AccountBean bean=new AccountBean(id,typename,selectedImageId,note,money,time,year,month,day,kind);
+            list.add(bean);
+        }
+        cursor.close();
+        return list;
+    }
+    /*
+     * 获取记账表当中某一月的所有支出或者收入情况
+     * */
+    @NonNull
+    @SuppressLint("Range")
+    public static ArrayList<AccountBean> getAccountListOn(int sYear){
+        ArrayList<AccountBean> list = new ArrayList<>();
+        String sql = "select * from accounttb where year=? order by id desc";
+        Cursor cursor= db.rawQuery(sql,new String[]{sYear+""});
         //遍历符合要求的每一行数据
         while(cursor.moveToNext()){
             int id = cursor.getInt(cursor.getColumnIndex("id"));
@@ -173,6 +228,19 @@ public class DBManager {
             list.add(bean);
         }
         cursor.close();
+        return list;
+    }
+    /*
+    * 查询accounttb中有记录年份列表
+    * */
+    public static ArrayList<Integer>getYearListFromAccounttb(){
+        ArrayList<Integer>list=new ArrayList<>();
+        String sql="select distinct(year) from accounttb order by year asc";
+        Cursor cursor = db.rawQuery(sql, null);
+        while(cursor.moveToNext()){
+            @SuppressLint("Range") int year=cursor.getInt(cursor.getColumnIndex("year"));
+            list.add(year);
+        }
         return list;
     }
 }

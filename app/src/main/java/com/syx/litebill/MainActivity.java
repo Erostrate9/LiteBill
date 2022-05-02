@@ -24,6 +24,7 @@ import com.syx.litebill.adapter.AccountAdapter;
 import com.syx.litebill.db.AccountBean;
 import com.syx.litebill.db.DBManager;
 import com.syx.litebill.utils.BudgetDialog;
+import com.syx.litebill.utils.MoreDialog;
 import com.syx.litebill.utils.NoteDialog;
 
 import java.util.ArrayList;
@@ -167,6 +168,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.item_mainlv_top_iv_hide:
                 toggleShow();
+                break;
+            case R.id.main_btn_more:
+                MoreDialog moreDialog =new MoreDialog(this);
+                moreDialog.show();
                 break;
             default:
                 if(view==headerView){

@@ -2,62 +2,76 @@ package com.syx.litebill;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.accounts.Account;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.syx.litebill.adapter.AccountAdapter;
 import com.syx.litebill.db.AccountBean;
 import com.syx.litebill.db.DBManager;
+import com.syx.litebill.utils.CalendarDialog;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
-public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
-    //绑定控件
-    private ListView searchLv ;
-    private ImageView searchIvBack ;
-    private ImageView searchIvS ;
-    private EditText searchEt ;
-    private TextView emptyTv ;
+public class HistoryActivity extends AppCompatActivity implements View.OnClickListener {
+    private ListView historyLv;
+    private TextView dateTv;
+    private ImageView calendarIv;
+    private ImageView backIv;
     private AccountAdapter adapter;
+    private TextView emptyTv;
     //数据源
     private ArrayList<AccountBean> mData;
+    private int year,month,selectYearPos=-1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-        initView();
+        setContentView(R.layout.activity_history);
+        historyLv = findViewById(R.id.history_lv);
+        dateTv=findViewById(R.id.history_tv_date);
+        calendarIv=findViewById(R.id.history_iv_calendar);
+        backIv=findViewById(R.id.history_iv_back);
+        emptyTv = findViewById(R.id.history_tv_empty);
+        calendarIv.setOnClickListener(this);
+        backIv.setOnClickListener(this);
+
         mData= new ArrayList<>();
         adapter = new AccountAdapter(this, mData);
-        searchLv.setAdapter(adapter);
+        historyLv.setAdapter(adapter);
+        initTime();
+        dateTv.setText(year+"年"+month+"月");
+        loadData();
 //        设置无数据时LV显示的控件
-        searchLv.setEmptyView(emptyTv);
-    }
-
-    private void initView() {
-        searchLv=findViewById(R.id.search_lv);
-        searchIvBack=findViewById(R.id.search_iv_back);
-        searchIvS =findViewById(R.id.search_iv_s);
-        searchEt=findViewById(R.id.search_et);
-        emptyTv=findViewById(R.id.search_tv_empty);
-
-        searchIvS.setOnClickListener(this);
-        searchIvBack.setOnClickListener(this);
-        //        设置长按事件
+        historyLv.setEmptyView(emptyTv);
         setLVLongClickListener();
     }
 
+    /*获取指定年份月份的AccoutBean list*/
+    private void loadData() {
+        mData.clear();
+        ArrayList<AccountBean> list = DBManager.getAccountListOn(year, month);
+        mData.addAll(list);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void initTime() {
+        Calendar calender = Calendar.getInstance();
+        year = calender.get(Calendar.YEAR);
+        month = calender.get(Calendar.MONTH)+1;
+    }
+
     private void setLVLongClickListener() {
-        searchLv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        historyLv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 //                获取正在被点击的这条信息
@@ -85,26 +99,27 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         //显示提示对话框
         builder.create().show();
     }
-
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.search_iv_s:
-                mData.clear();
-                String msg = searchEt.getText().toString().trim();
-                if(TextUtils.isEmpty(msg)){
-                    Toast.makeText(this, "查询内容不能为空!", Toast.LENGTH_SHORT).show();
-                    return;
-                }else{
-                    //查询数据库获取数据集合
-                    ArrayList<AccountBean> list = DBManager.searchFromAccounttbByNote(msg);
-                    mData.addAll(list);
-                    adapter.notifyDataSetChanged();
-                }
-                break;
-            case R.id.search_iv_back:
+        switch (view.getId()){
+            case R.id.history_iv_back:
                 finish();
+                break;
+            case R.id.history_iv_calendar:
+                CalendarDialog calendarDialog= new CalendarDialog(this,selectYearPos,year,month);
+                calendarDialog.show();
+                calendarDialog.setOnRefreshListener(new CalendarDialog.OnRefreshListener() {
+                    @Override
+                    public void onRefresh(int selectPos,int selectYear, int selectMon) {
+                        year = selectYear;
+                        month = selectMon;
+                        selectYearPos=selectPos;
+                        dateTv.setText(year+"年"+month+"月");
+                        loadData();
+                    }
+                });
                 break;
         }
     }
+
 }

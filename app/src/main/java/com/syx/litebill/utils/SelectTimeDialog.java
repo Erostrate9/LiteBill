@@ -42,7 +42,7 @@ public class SelectTimeDialog extends Dialog implements View.OnClickListener {
         cancelBtn=(Button) findViewById(R.id.dialog_time_btn_cancel);
         confirmBtn.setOnClickListener(this);
         cancelBtn.setOnClickListener(this);
-        datePicker.init(accountBean.getYear(),accountBean.getMonth(),accountBean.getDay(),null);
+        datePicker.init(accountBean.getYear(),accountBean.getMonth()-1,accountBean.getDay(),null);
         Date date = new Date();
         hourEt.setText(Integer.toString(date.getHours()));
         minEt.setText(Integer.toString(date.getMinutes()));
