@@ -18,6 +18,7 @@ import com.syx.litebill.AboutActivity;
 import com.syx.litebill.HistoryActivity;
 import com.syx.litebill.R;
 import com.syx.litebill.SearchActivity;
+import com.syx.litebill.SettingActivity;
 
 public class MoreDialog extends Dialog implements View.OnClickListener{
     private Button aboutBtn,settingBtn,historyBtn,infoBtn,vxBtn;
@@ -61,7 +62,8 @@ public class MoreDialog extends Dialog implements View.OnClickListener{
                 context.startActivity(intent);
                 break;
             case R.id.dialog_more_btn_setting:
-
+                intent.setClass(getContext(), SettingActivity.class);
+                context.startActivity(intent);
                 break;
             case R.id.dialog_more_btn_history:
                 intent.setClass(getContext(), HistoryActivity.class);
