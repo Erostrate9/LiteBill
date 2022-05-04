@@ -33,4 +33,6 @@
     <string name="about_github">Github仓库地址</string>
     <string name="about_github_value">https://github.com/Erostrate9/LiteBill</string>
     <string name="history_info">本月账单记录</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

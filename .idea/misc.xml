@@ -13,6 +13,7 @@
         <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/activity_expense_fragment.xml" value="0.23278985507246377" />
         <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/activity_history.xml" value="0.20168066580377575" />
         <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/activity_main.xml" value="0.1752988047808765" />
+        <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/activity_month_chart.xml" value="0.19630192502532928" />
         <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/activity_record.xml" value="0.23278985507246377" />
         <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/activity_search.xml" value="0.16941175927517163" />
         <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/activity_setting.xml" value="0.20168066580377575" />
@@ -23,6 +24,10 @@
         <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/dialog_note.xml" value="0.26621847886098404" />
         <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/dialog_time.xml" value="0.26621847886098404" />
         <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/fragment_expense.xml" value="0.26621847886098404" />
+        <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/fragment_expense_chart.xml" value="0.10092592592592593" />
+        <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/fragment_income_chart.xml" value="0.19630192502532928" />
+        <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/item_char_frag_top.xml" value="0.16134453264302062" />
+        <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/item_chart_frag_lv.xml" value="0.20168066580377575" />
         <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/item_dialog_calendar_gv.xml" value="0.26621847886098404" />
         <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/item_dialog_calendar_hsv.xml" value="0.20168066580377575" />
         <entry key="..\:/CODE/android/LiteBill/app/src/main/res/layout/item_mainlv.xml" value="0.26621847886098404" />

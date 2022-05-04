@@ -10,7 +10,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.syx.litebill.adapter.AccountAdapter;
+import com.syx.litebill.adapter.ChartItemAdapter;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -240,6 +242,42 @@ public class DBManager {
         while(cursor.moveToNext()){
             @SuppressLint("Range") int year=cursor.getInt(cursor.getColumnIndex("year"));
             list.add(year);
+        }
+        return list;
+    }
+    /*
+    * 统计某月份支出或收入情况有多少条
+    * 0-支出, 1-收入
+    * */
+    @SuppressLint("Range")
+    public static int getCountItemOneMonth(int kind, int year, int month){
+        int total=0;
+        String sql="select count(money) from accounttb where kind=? and year=? and month=?";
+        Cursor cursor = db.rawQuery(sql, new String[]{kind + "", year + "", month + ""});
+        if(cursor.moveToFirst()){
+            int count=cursor.getInt(cursor.getColumnIndex("count(money)"));
+            total = count;
+        }
+        return total;
+    }
+
+    /*
+    * 查询指定月份的收入或支出每一种的类型，图片id，总钱数，占当月总支出/收入的百分比
+    * */
+    @SuppressLint("Range")
+    public static ArrayList<ChartItemBean>getChartListFromAccounttb(int kind,int year,int month){
+        ArrayList<ChartItemBean> list = new ArrayList<>();
+        float sumMoneyThisMonth = getSumMoneyOn(kind,year,month);
+        String sql = "select typename,selectedImageId,sum(money)as total from accounttb where kind=? and year=? and month=? group by typename "+
+                "order by total desc";
+        Cursor cursor = db.rawQuery(sql, new String[]{kind + "", year + "", month + ""});
+        while(cursor.moveToNext()){
+             int sImageId=cursor.getInt(cursor.getColumnIndex("selectedImageId"));
+             String typename = cursor.getString(cursor.getColumnIndex("typename"));
+             float total=cursor.getInt(cursor.getColumnIndex("total"));
+             float ratio=total/sumMoneyThisMonth;
+            ChartItemBean chartItemBean = new ChartItemBean(sImageId, typename, ratio, total);
+            list.add(chartItemBean);
         }
         return list;
     }

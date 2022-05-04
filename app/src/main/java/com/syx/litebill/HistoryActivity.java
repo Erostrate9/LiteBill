@@ -31,12 +31,14 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
     private TextView emptyTv;
     //数据源
     private ArrayList<AccountBean> mData;
-    private int year,month,selectYearPos=-1;
+    private ArrayList<Integer> yearList;
+    private int year,month,selectYearPos=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+        yearList=new ArrayList<>();
         historyLv = findViewById(R.id.history_lv);
         dateTv=findViewById(R.id.history_tv_date);
         calendarIv=findViewById(R.id.history_iv_calendar);
@@ -65,9 +67,11 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void initTime() {
-        Calendar calender = Calendar.getInstance();
-        year = calender.get(Calendar.YEAR);
-        month = calender.get(Calendar.MONTH)+1;
+        yearList=DBManager.getYearListFromAccounttb();
+        selectYearPos=yearList.size()-1;
+        year = yearList.get(selectYearPos);
+        Calendar calendar=Calendar.getInstance();
+        month = calendar.get(Calendar.MONTH)+1;
     }
 
     private void setLVLongClickListener() {
@@ -94,6 +98,12 @@ public class HistoryActivity extends AppCompatActivity implements View.OnClickLi
                         mData.remove(clickedBean);
 //                      实时刷新，移除集合中的对象
                         adapter.notifyDataSetChanged();
+                        //重新拉取yearList
+                        yearList=DBManager.getYearListFromAccounttb();
+                        if(selectYearPos>=yearList.size()){
+                            selectYearPos=yearList.size()-1;
+                            year = yearList.get(selectYearPos);
+                        }
                     }
                 });
         //显示提示对话框
