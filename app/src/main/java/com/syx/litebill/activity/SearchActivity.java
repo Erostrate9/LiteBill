@@ -1,4 +1,4 @@
-package com.syx.litebill;
+package com.syx.litebill.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.syx.litebill.R;
 import com.syx.litebill.adapter.AccountAdapter;
 import com.syx.litebill.model.AccountBean;
 import com.syx.litebill.db.DBManager;

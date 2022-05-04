@@ -1,4 +1,4 @@
-package com.syx.litebill;
+package com.syx.litebill.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -8,9 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
+import com.syx.litebill.R;
 import com.syx.litebill.adapter.RecordPagerAdapter;
-import com.syx.litebill.frag_record.ExpenseFragment;
-import com.syx.litebill.frag_record.IncomeFragment;
+import com.syx.litebill.frag.frag_record.ExpenseFragment;
+import com.syx.litebill.frag.frag_record.IncomeFragment;
 
 import java.util.ArrayList;
 

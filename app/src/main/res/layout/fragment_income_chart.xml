@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/rice_fffaf4"
-    tools:context=".frag_chart.IncomeChartFragment">
+    tools:context=".frag.frag_chart.IncomeChartFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <ListView

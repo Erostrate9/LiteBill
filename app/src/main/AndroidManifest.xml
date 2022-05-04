@@ -11,25 +11,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LiteBill">
         <activity
-            android:name=".MonthChartActivity"
+            android:name=".activity.MonthChartActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingActivity"
+            android:name=".activity.SettingActivity"
             android:exported="false" />
         <activity
-            android:name=".HistoryActivity"
+            android:name=".activity.HistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".AboutActivity"
+            android:name=".activity.AboutActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".activity.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".RecordActivity"
+            android:name=".activity.RecordActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

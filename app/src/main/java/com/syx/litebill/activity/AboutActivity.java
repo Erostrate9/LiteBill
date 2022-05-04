@@ -1,4 +1,4 @@
-package com.syx.litebill;
+package com.syx.litebill.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.syx.litebill.R;
 
 public class AboutActivity extends AppCompatActivity{
     ImageView aboutIv;

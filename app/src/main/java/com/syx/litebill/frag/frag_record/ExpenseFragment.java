@@ -1,4 +1,4 @@
-package com.syx.litebill.frag_record;
+package com.syx.litebill.frag.frag_record;
 
 
 import com.syx.litebill.R;
@@ -9,22 +9,22 @@ import com.syx.litebill.model.TypeBean;
 import java.util.List;
 
 /*
- * 记录页面的收入模块
- * */
-public class IncomeFragment extends BaseRecordFragment {
+* 记录页面的支出模块
+* */
+public class ExpenseFragment extends BaseRecordFragment {
 
     @Override
     public void getIconAndShow() {
-        List<TypeBean> inList = DBManager.getTypeList(1);
-        getTypeBeans().addAll(inList);
+        List<TypeBean> outList = DBManager.getTypeList(0);
+        getTypeBeans().addAll(outList);
         getAdapter().notifyDataSetChanged();
-        getTypeIv().setImageResource(R.mipmap.in_qt_fs);
+        getTypeIv().setImageResource(R.mipmap.ic_qita_fs);
+        getAccountBean().setKind(0);
     }
 
     @Override
     public void saveAccountToDB(AccountBean accountBean) {
-        accountBean.setKind(1);
+        accountBean.setKind(0);
         DBManager.insertItemToAccounttb(accountBean);
     }
-
 }

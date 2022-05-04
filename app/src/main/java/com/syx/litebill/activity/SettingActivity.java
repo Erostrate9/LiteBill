@@ -1,4 +1,4 @@
-package com.syx.litebill;
+package com.syx.litebill.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.syx.litebill.R;
 
 public class SettingActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView settingTv1;

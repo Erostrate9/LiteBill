@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/rice_fffaf4"
-    tools:context=".frag_record.ExpenseFragment">
+    tools:context=".frag.frag_record.ExpenseFragment">
 
     <RelativeLayout
         android:id="@+id/frag_record_r1_top"

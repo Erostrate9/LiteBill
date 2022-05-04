@@ -1,4 +1,4 @@
-package com.syx.litebill.utils;
+package com.syx.litebill.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -14,12 +14,11 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
-import com.syx.litebill.AboutActivity;
-import com.syx.litebill.HistoryActivity;
-import com.syx.litebill.MonthChartActivity;
+import com.syx.litebill.activity.AboutActivity;
+import com.syx.litebill.activity.HistoryActivity;
+import com.syx.litebill.activity.MonthChartActivity;
 import com.syx.litebill.R;
-import com.syx.litebill.SearchActivity;
-import com.syx.litebill.SettingActivity;
+import com.syx.litebill.activity.SettingActivity;
 
 public class MoreDialog extends Dialog implements View.OnClickListener{
     private Button aboutBtn,settingBtn,historyBtn,infoBtn,vxBtn;

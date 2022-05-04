@@ -1,4 +1,4 @@
-package com.syx.litebill;
+package com.syx.litebill.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -11,11 +11,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.syx.litebill.R;
 import com.syx.litebill.adapter.ChartVpAdapter;
 import com.syx.litebill.db.DBManager;
-import com.syx.litebill.frag_chart.ExpenseChartFragment;
-import com.syx.litebill.frag_chart.IncomeChartFragment;
-import com.syx.litebill.utils.CalendarDialog;
+import com.syx.litebill.frag.frag_chart.ExpenseChartFragment;
+import com.syx.litebill.frag.frag_chart.IncomeChartFragment;
+import com.syx.litebill.dialog.CalendarDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;

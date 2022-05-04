@@ -1,4 +1,4 @@
-package com.syx.litebill.frag_chart;
+package com.syx.litebill.frag.frag_chart;
 
 import androidx.fragment.app.Fragment;
 

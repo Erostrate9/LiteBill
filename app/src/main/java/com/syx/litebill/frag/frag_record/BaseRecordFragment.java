@@ -1,4 +1,4 @@
-package com.syx.litebill.frag_record;
+package com.syx.litebill.frag.frag_record;
 
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
@@ -21,8 +21,8 @@ import com.syx.litebill.adapter.TypeBaseAdapter;
 import com.syx.litebill.model.AccountBean;
 import com.syx.litebill.model.TypeBean;
 import com.syx.litebill.utils.KeyBoardUtils;
-import com.syx.litebill.utils.NoteDialog;
-import com.syx.litebill.utils.SelectTimeDialog;
+import com.syx.litebill.dialog.NoteDialog;
+import com.syx.litebill.dialog.SelectTimeDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

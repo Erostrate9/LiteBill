@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/grey_ececea"
-    tools:context=".MonthChartActivity">
+    android:background="@color/rice_fffaf4"
+    tools:context=".activity.MonthChartActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp">

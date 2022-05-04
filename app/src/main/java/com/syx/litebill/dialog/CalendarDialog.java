@@ -1,4 +1,4 @@
-package com.syx.litebill.utils;
+package com.syx.litebill.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
