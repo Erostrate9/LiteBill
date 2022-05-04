@@ -2,9 +2,9 @@ package com.syx.litebill.frag_record;
 
 
 import com.syx.litebill.R;
-import com.syx.litebill.db.AccountBean;
+import com.syx.litebill.model.AccountBean;
 import com.syx.litebill.db.DBManager;
-import com.syx.litebill.db.TypeBean;
+import com.syx.litebill.model.TypeBean;
 
 import java.util.List;
 

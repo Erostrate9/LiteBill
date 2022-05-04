@@ -1,4 +1,4 @@
-package com.syx.litebill.db;
+package com.syx.litebill.model;
 /*
 * 表示收入或支出的具体类型
 * */

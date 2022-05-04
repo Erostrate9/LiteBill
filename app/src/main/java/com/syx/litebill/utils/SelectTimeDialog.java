@@ -13,11 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.syx.litebill.R;
-import com.syx.litebill.db.AccountBean;
+import com.syx.litebill.model.AccountBean;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.regex.Pattern;
 
 public class SelectTimeDialog extends Dialog implements View.OnClickListener {
     private EditText hourEt, minEt;

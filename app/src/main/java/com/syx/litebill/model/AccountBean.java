@@ -1,4 +1,4 @@
-package com.syx.litebill.db;
+package com.syx.litebill.model;
 /*描述记录一条数据的相关内容类*/
 public class AccountBean {
     private int id;

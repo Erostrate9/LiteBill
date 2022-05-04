@@ -1,4 +1,4 @@
-package com.syx.litebill.db;
+package com.syx.litebill.model;
 
 public class ChartItemBean {
     int sImageId;

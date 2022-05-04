@@ -1,10 +1,7 @@
 package com.syx.litebill.adapter;
 
 import android.content.Context;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.VerifiedInputEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.syx.litebill.R;
-import com.syx.litebill.db.AccountBean;
+import com.syx.litebill.model.AccountBean;
 
 import java.util.ArrayList;
 import java.util.Calendar;

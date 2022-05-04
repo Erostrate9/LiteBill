@@ -1,7 +1,6 @@
 package com.syx.litebill.adapter;
 
 import android.content.Context;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.syx.litebill.R;
-import com.syx.litebill.db.TypeBean;
+import com.syx.litebill.model.TypeBean;
 
 import java.util.List;
 

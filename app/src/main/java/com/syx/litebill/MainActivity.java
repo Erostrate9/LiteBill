@@ -8,10 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -21,11 +19,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.syx.litebill.adapter.AccountAdapter;
-import com.syx.litebill.db.AccountBean;
+import com.syx.litebill.model.AccountBean;
 import com.syx.litebill.db.DBManager;
 import com.syx.litebill.utils.BudgetDialog;
 import com.syx.litebill.utils.MoreDialog;
-import com.syx.litebill.utils.NoteDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;

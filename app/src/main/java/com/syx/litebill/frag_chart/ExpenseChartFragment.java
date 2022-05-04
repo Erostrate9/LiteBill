@@ -1,5 +1,6 @@
 package com.syx.litebill.frag_chart;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,5 +19,6 @@ import com.syx.litebill.R;
 public class ExpenseChartFragment extends BaseChartFragment {
     public ExpenseChartFragment(){
         kind=0;
+        barColor= "#ff0000";
     }
 }

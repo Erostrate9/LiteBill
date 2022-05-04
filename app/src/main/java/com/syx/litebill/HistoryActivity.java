@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,11 +12,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.syx.litebill.adapter.AccountAdapter;
-import com.syx.litebill.db.AccountBean;
+import com.syx.litebill.model.AccountBean;
 import com.syx.litebill.db.DBManager;
 import com.syx.litebill.utils.CalendarDialog;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;

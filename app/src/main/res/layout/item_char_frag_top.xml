@@ -9,12 +9,14 @@
     <TextView
         android:id="@+id/item_chart_frag_top_tv_empty"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         android:text="@string/data_empty"
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="20sp"
+        android:paddingTop="20dp"
         android:drawableTop="@mipmap/it_searchtext"
-        android:visibility="gone"
+        android:drawablePadding="-20dp"
+        android:visibility="visible"
         />
 </RelativeLayout>

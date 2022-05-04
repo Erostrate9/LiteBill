@@ -18,9 +18,8 @@ import androidx.fragment.app.Fragment;
 
 import com.syx.litebill.R;
 import com.syx.litebill.adapter.TypeBaseAdapter;
-import com.syx.litebill.db.AccountBean;
-import com.syx.litebill.db.DBManager;
-import com.syx.litebill.db.TypeBean;
+import com.syx.litebill.model.AccountBean;
+import com.syx.litebill.model.TypeBean;
 import com.syx.litebill.utils.KeyBoardUtils;
 import com.syx.litebill.utils.NoteDialog;
 import com.syx.litebill.utils.SelectTimeDialog;
