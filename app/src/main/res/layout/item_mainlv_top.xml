@@ -27,13 +27,14 @@
             android:layout_marginBottom="10dp"
             android:textColor="@color/black"
             android:textStyle="bold" />
+
         <ImageView
             android:id="@+id/item_mainlv_top_iv_hide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@id/item_mainlv_top_tv_out"
             android:layout_alignParentRight="true"
-            android:src="@mipmap/ih_show"
-            android:layout_alignTop="@id/item_mainlv_top_tv_out"/>
+            android:src="@mipmap/ih_show" />
 
         <TextView
             android:id="@+id/item_mainlv_top_tv2"
@@ -73,7 +74,7 @@
             android:textColor="@color/black" />
 
         <TextView
-            android:id="@+id/item_mainlv_tv4"
+            android:id="@+id/item_mainlv_tv_chart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/item_mainlv_top_tv2"

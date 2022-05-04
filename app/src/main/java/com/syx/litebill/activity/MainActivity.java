@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AccountAdapter adapter;
     //头布局相关控件
     private View headerView;
-    private TextView topOutTv,topInTv, topBudgetTv,topDayTv;
+    private TextView topOutTv,topInTv, topBudgetTv,topDayTv,topChartTv;
     private ImageView topShowIv,searchIV;
     private Button editBtn;
     private ImageButton moreBtn;
@@ -98,9 +98,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         topBudgetTv = headerView.findViewById(R.id.item_mainlv_top_tv_budget);
         topDayTv = headerView.findViewById(R.id.item_mainlv_top_tv_day);
         topShowIv = headerView.findViewById(R.id.item_mainlv_top_iv_hide);
+        topChartTv=headerView.findViewById(R.id.item_mainlv_tv_chart);
         topBudgetTv.setOnClickListener(this);
         headerView.setOnClickListener(this);
         topShowIv.setOnClickListener(this);
+        topChartTv.setOnClickListener(this);
 
     }
     /*
@@ -170,6 +172,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.main_btn_more:
                 MoreDialog moreDialog =new MoreDialog(this);
                 moreDialog.show();
+                break;
+            case R.id.item_mainlv_tv_chart:
+                Intent itChart = new Intent(this, MonthChartActivity.class);
+                startActivity(itChart);
                 break;
             default:
                 if(view==headerView){
