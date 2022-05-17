@@ -45,7 +45,7 @@ public abstract class BaseRecordFragment extends Fragment implements View.OnClic
 
 
     private TypeBaseAdapter adapter;
-    private AccountBean accountBean; //将需要插入到记账本当中的数据保存为对象
+    protected AccountBean accountBean; //将需要插入到记账本当中的数据保存为对象
 
     public BaseRecordFragment(){
 
